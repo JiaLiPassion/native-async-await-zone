@@ -49,3 +49,5 @@ zone2.run(async() => {
 If we have two zone, and `await` sync operation, finally, with this solution, zone1 after run will also go into zone2.
 
 But this solution maybe able to resolve some specified issue, such as we know we only use one zone.
+
+Here is a running sample, https://stackblitz.com/edit/js-hdcq2u?file=index.js
