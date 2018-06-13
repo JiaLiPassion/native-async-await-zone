@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="./zone.js"></script>
+    <script>
+      async function syncTest() {
+        console.log('async Function');
+      }
+
+      async function asyncTest() {
+        return new Promise((res, rej) => {
+          setTimeout(res, 100);
+        });
+      }
+
+      async function run(asyncMethod) {
+        const zone = Zone.current.fork({
+          name: 'zone'
+        });
+        zone.run(async () => {
+          console.log('before run', Zone.current.name);
+          await asyncMethod();
+          console.log('after run', Zone.current.name);
+        });
+        console.log('outside', Zone.current.name);
+      }
+
+      run(syncTest);
+      run(asyncTest);
+    </script>
+  </head>
+</html>
