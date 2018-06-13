@@ -32,7 +32,12 @@ run(asyncTest);
 after await, the `Zone` will lost.
 
 in this repo, I created a patched `zone.js` to handle this issue, it will not resolve all cases of `async/await`.
-For example, the following case will still not work.
+It will only work in some limited conditions.
+
+1. the awaited method is sync operation, such as the `syncTest` above.
+2. the awaited method is async operation, and inside the async operation, it will use `global.Promise or window.Promise`.
+
+And the following case will still not work.
 
 ```ts
 zone1.run(async() => {
