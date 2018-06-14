@@ -899,6 +899,7 @@ Zone.__load_patch('ZoneAwarePromise', function (global, Zone, api) {
     var ZoneAwarePromise = /** @class */ (function () {
         function ZoneAwarePromise(executor) {
             var promise = this;
+            this.isNativePromise = false;
             promise[zoneSymbol('zone')] = Zone.current;
             if (!(promise instanceof ZoneAwarePromise)) {
                 throw new Error('Must be an instanceof Promise.');
@@ -972,6 +973,7 @@ Zone.__load_patch('ZoneAwarePromise', function (global, Zone, api) {
         };
         ZoneAwarePromise.prototype.then = function (onFulfilled, onRejected) {
             var chainPromise = new this.constructor(null);
+            chainPromise.isNativePromise = this.isNativePromise;
             var promiseZone = this[zoneSymbol('zone')];
             var zone = promiseZone && promiseZone !== Zone.root ? promiseZone : Zone.current;
             if (this[symbolState] == UNRESOLVED) {
@@ -1065,6 +1067,7 @@ Zone.__load_patch('ZoneAwarePromise', function (global, Zone, api) {
             var wrapped = new ZoneAwarePromise(function (resolve, reject) {
                 return originalThen.call(_this, resolve, reject);
             });
+            wrapped.isNativePromise = isNativePromise;
             var resDelegate = isNativePromise ? function () {
                 // var promiseZone = findPromiseZone(this);
                 if (promiseZone) {

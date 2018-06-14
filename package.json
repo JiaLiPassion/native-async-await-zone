@@ -1,0 +1,22 @@
+{
+  "name": "await",
+  "version": "1.0.0",
+  "description": "use `zone.js` to handle `native async/await` issue. `native async/await` will use `native promise`, so `zone.js` can not control it's lifecycle. Code like below will not work.",
+  "main": "zone-testing.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiaLiPassion/native-async-await-zone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JiaLiPassion/native-async-await-zone/issues"
+  },
+  "homepage": "https://github.com/JiaLiPassion/native-async-await-zone#readme",
+  "dependencies": {
+    "rxjs": "^6.2.1"
+  }
+}
