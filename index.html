@@ -35,8 +35,14 @@
 
       const myObservable = rxjs.defer(async function () {
         await asyncTest();
-        console.log('after await ', Zone.current.name)
         return 'some value';
+      });
+
+      const myObservable1 = new rxjs.Observable(function (subscriber) {
+        setInterval(async function () {
+          await asyncTest();
+          subscriber.next('some value');
+        }, 100);
       });
 
       async function run(asyncMethod) {
@@ -64,9 +70,15 @@
         var logDiv = document.getElementById('log');
         logDiv.innerText = '';
         fakeAsyncZone.run(() => {
+          myObservable1.subscribe((v) => {
+            log('interval triggered', v);
+          });
           myObservable.subscribe((v) => {
             log('delay triggered', v);
           });
+          Zone.current.get('FakeAsyncTestZoneSpec').tick(100);
+          Zone.current.get('FakeAsyncTestZoneSpec').tick(100);
+          Zone.current.get('FakeAsyncTestZoneSpec').tick(100);
           Zone.current.get('FakeAsyncTestZoneSpec').tick(100);
         });
       }
