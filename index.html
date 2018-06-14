@@ -8,7 +8,6 @@
     window.onload = function () {
       document.getElementById('asyncBtn').addEventListener('click', asyncTestClicked);
       document.getElementById('rxjsBtn').addEventListener('click', rxjsTestClicked);
-      document.getElementById('pureRxjsBtn').addEventListener('click', pureRxjsClicked);
 
       var FakeAsyncTestZoneSpec = Zone['FakeAsyncTestZoneSpec'];
       var fakeAsyncZone = Zone.current.fork(new FakeAsyncTestZoneSpec('async'));
@@ -83,17 +82,11 @@
         });
       }
 
-      function pureRxjsClicked() {
-        myObservable.subscribe((v) => {
-          log('delay triggered', v);
-        });
-      }
     };
   </script>
 </head>
 <div id="log"></div>
 <button id="asyncBtn">async test</button>
 <button id="rxjsBtn">rxjs test</button>
-<button id="pureRxjsBtn">pure rxjs test</button>
 
 </html>
